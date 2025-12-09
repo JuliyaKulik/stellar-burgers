@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// services/store.ts
+>>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import {
   TypedUseSelectorHook,
@@ -6,6 +10,7 @@ import {
 } from 'react-redux';
 import userReducer from './slices/userSlice';
 import ingredientsReducer from './slices/ingredientsSlice';
+<<<<<<< HEAD
 import { burgerReducer } from './slices/constructorSlice';
 import feedReducer from './slices/feedSlice';
 import orderReducer from './slices/orderSlice';
@@ -18,10 +23,26 @@ export const rootReducer = combineReducers({
   order: orderReducer,
   user: userReducer,
   userOrders: userOrdersReducer
+=======
+import constructorReducer from './slices/constructorSlice';
+import feedReducer from './slices/feedSlice';
+import orderReducer from './slices/orderSlice';
+
+export const rootReducer = combineReducers({
+  ingredients: ingredientsReducer,
+  constructor: constructorReducer,
+  feed: feedReducer,
+  order: orderReducer,
+  user: userReducer
+>>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
 });
 
 export const store = configureStore({
   reducer: rootReducer,
+<<<<<<< HEAD
+=======
+  devTools: process.env.NODE_ENV !== 'production',
+>>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// services/slices/feedSlice.ts
+>>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getFeedsApi } from '@api';
 import { TOrdersData } from '@utils-types';
@@ -41,7 +45,11 @@ const feedSlice = createSlice({
       })
       .addCase(fetchFeeds.rejected, (state, action) => {
         state.isLoading = false;
+<<<<<<< HEAD
         state.error = action.error.message || 'Ошибка загрузки';
+=======
+        state.error = action.error.message || 'Failed to fetch feeds';
+>>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
       });
   }
 });

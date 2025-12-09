@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+// services/slices/ingredientsSlice.ts
+>>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getIngredientsApi } from '@api';
 import { TIngredient } from '@utils-types';

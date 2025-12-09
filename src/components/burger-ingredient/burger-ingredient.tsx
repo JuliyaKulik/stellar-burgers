@@ -3,8 +3,15 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../services/store';
 import { BurgerIngredientUI } from '@ui';
 import { TBurgerIngredientProps } from './type';
+<<<<<<< HEAD
 import { TConstructorIngredient } from '../../utils/types';
 import { addBun, addIngredient } from '../../services/slices/constructorSlice';
+=======
+import {
+  addBun,
+  addIngredient
+} from '../../services/slices/constructorSlice';
+>>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
   ({ ingredient, count }) => {
@@ -19,6 +26,7 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
     };
 
     const handleAdd = () => {
+<<<<<<< HEAD
       const constructorIngredient: TConstructorIngredient = {
         ...ingredient,
         id: `${ingredient._id}-${Date.now()}-${Math.random().toString(36).slice(2)}`
@@ -28,6 +36,12 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
         dispatch(addBun(constructorIngredient));
       } else {
         dispatch(addIngredient(constructorIngredient));
+=======
+      if (ingredient.type === 'bun') {
+        dispatch(addBun(ingredient));
+      } else {
+        dispatch(addIngredient(ingredient));
+>>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
       }
     };
 

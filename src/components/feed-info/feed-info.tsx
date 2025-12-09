@@ -11,6 +11,10 @@ const getOrders = (orders: TOrder[], status: string): number[] =>
     .slice(0, 20);
 
 export const FeedInfo: FC = () => {
+<<<<<<< HEAD
+=======
+  // Берем переменные из стора
+>>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
   const { orders, total, totalToday } = useSelector((state) => state.feed);
 
   const readyOrders = getOrders(orders, 'done');
