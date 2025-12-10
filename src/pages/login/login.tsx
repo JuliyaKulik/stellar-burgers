@@ -1,17 +1,44 @@
+// pages/login/login.tsx
 import { FC, SyntheticEvent, useState } from 'react';
+import { useAppDispatch } from '../../services/store';
 import { LoginUI } from '@ui-pages';
+import { userLogin } from '../../services/slices/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const Login: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorText, setErrorText] = useState('');
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
+    setErrorText('');
+
+    try {
+      const resultAction = await dispatch(userLogin({ email, password }));
+
+      if (userLogin.fulfilled.match(resultAction)) {
+        // Успешный вход
+        navigate('/', { replace: true });
+      } else {
+        // Ошибка входа
+        if (resultAction.payload) {
+          setErrorText(resultAction.payload as string);
+        } else {
+          setErrorText('Ошибка входа. Проверьте email и пароль.');
+        }
+      }
+    } catch (error) {
+      setErrorText('Ошибка входа. Попробуйте снова.');
+    }
   };
 
   return (
     <LoginUI
-      errorText=''
+      errorText={errorText}
       email={email}
       setEmail={setEmail}
       password={password}

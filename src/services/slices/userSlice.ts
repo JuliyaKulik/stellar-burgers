@@ -121,7 +121,7 @@ const userSlice = createSlice({
         if (action.payload.success) {
           state.user = action.payload.user;
           setCookie('accessToken', action.payload.accessToken);
-          setCookie('accessToken', action.payload.accessToken);
+          localStorage.setItem('refreshToken', action.payload.refreshToken); // Исправлено
         }
       })
       .addCase(userRegister.rejected, (state, action) => {
