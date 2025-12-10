@@ -7,21 +7,20 @@ import {
 } from 'react-redux';
 import userReducer from './slices/userSlice';
 import ingredientsReducer from './slices/ingredientsSlice';
-import constructorReducer from './slices/constructorSlice';
+import { burgerReducer } from './slices/constructorSlice';
 import feedReducer from './slices/feedSlice';
 import orderReducer from './slices/orderSlice';
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
-  constructor: constructorReducer,
+  constructor: burgerReducer, // ПРАВИЛЬНО - это имя используется в компонентах
   feed: feedReducer,
   order: orderReducer,
-  user: userReducer
+  user: userReducer // аутентификация через user, не auth
 });
 
 export const store = configureStore({
   reducer: rootReducer,
-  devTools: process.env.NODE_ENV !== 'production',
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false

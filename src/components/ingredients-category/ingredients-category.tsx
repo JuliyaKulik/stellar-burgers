@@ -1,5 +1,7 @@
+// components/ingredients-category/ingredients-category.tsx
 import { forwardRef, useMemo } from 'react';
 import { TIngredientsCategoryProps } from './type';
+import { TIngredient, TConstructorIngredient } from '@utils-types';
 import { IngredientsCategoryUI } from '../ui/ingredients-category';
 import { useSelector } from '../../services/store';
 
@@ -7,28 +9,37 @@ export const IngredientsCategory = forwardRef<
   HTMLUListElement,
   TIngredientsCategoryProps
 >(({ title, titleRef, ingredients }, ref) => {
-  // Простые селекторы с дефолтными значениями
-  const bun = useSelector((state) => state.constructor?.bun);
-  const constructorIngredients = useSelector(
-    (state) => state.constructor?.ingredients || []
-  );
+  // Берем данные конструктора из стора
+  const burgerConstructor = useSelector((state) => state.constructor);
 
   const ingredientsCounters = useMemo(() => {
-    const counters: Record<string, number> = {};
+    const counters: { [key: string]: number } = {};
 
-    // Счетчик для обычных ингредиентов
-    constructorIngredients.forEach((item) => {
-      const id = item._id;
-      counters[id] = (counters[id] || 0) + 1;
-    });
+    if (!burgerConstructor) {
+      return counters;
+    }
 
-    // Счетчик для булки (всегда 2)
-    if (bun) {
-      counters[bun._id] = 2;
+    const { bun, ingredients: constructorIngredients } = burgerConstructor;
+
+    // Считаем основные ингредиенты - сравниваем по _id
+    if (constructorIngredients && Array.isArray(constructorIngredients)) {
+      constructorIngredients.forEach((ingredient: TConstructorIngredient) => {
+        if (ingredient && ingredient._id) {
+          if (!counters[ingredient._id]) {
+            counters[ingredient._id] = 0;
+          }
+          counters[ingredient._id]++;
+        }
+      });
+    }
+
+    // Добавляем булку - тоже по _id
+    if (bun && bun._id) {
+      counters[bun._id] = 2; // Булки всегда 2 штуки в конструкторе
     }
 
     return counters;
-  }, [bun, constructorIngredients]);
+  }, [burgerConstructor]);
 
   return (
     <IngredientsCategoryUI

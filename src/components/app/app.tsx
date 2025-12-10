@@ -15,7 +15,7 @@ import { ProtectedRoute } from '../protected-route';
 import '../../index.css';
 import styles from './app.module.css';
 import { useEffect } from 'react';
-import { getUser } from '../../services/slices/userSlice';
+import { checkUserAuth } from '../../services/slices/userSlice';
 import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 import { useAppDispatch } from '../../services/store';
 import { getCookie } from '../../utils/cookie';
@@ -31,10 +31,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('refreshToken') || getCookie('accessToken')) {
-      dispatch(getUser());
-    }
-    dispatch(fetchIngredients());
+    dispatch(fetchIngredients()); // Используйте fetchIngredients, а не getIngredients
+    dispatch(checkUserAuth());
   }, [dispatch]);
 
   return (

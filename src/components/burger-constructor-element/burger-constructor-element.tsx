@@ -3,8 +3,8 @@ import { useAppDispatch } from '../../services/store';
 import { BurgerConstructorElementUI } from '@ui';
 import { BurgerConstructorElementProps } from './type';
 import {
-  moveIngredient,
-  removeIngredient
+  removeIngredient,
+  moveIngredient
 } from '../../services/slices/constructorSlice';
 
 export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(

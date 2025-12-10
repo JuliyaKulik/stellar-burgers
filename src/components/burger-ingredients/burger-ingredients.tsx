@@ -1,26 +1,27 @@
+// components/burger-ingredients/burger-ingredients.tsx
 import { useState, useRef, useEffect, FC, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector } from '../../services/store';
-import { TTabMode } from '@utils-types';
+import { TTabMode, TIngredient } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 
 export const BurgerIngredients: FC = () => {
   // Получаем массив ингредиентов из состояния
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
-  // Теперь TypeScript знает, что ingredients - это TIngredient[]
+  // Фильтруем ингредиенты
   const buns = useMemo(
-    () => ingredients.filter((item) => item.type === 'bun'),
+    () => ingredients.filter((item: TIngredient) => item.type === 'bun'),
     [ingredients]
   );
 
   const mains = useMemo(
-    () => ingredients.filter((item) => item.type === 'main'),
+    () => ingredients.filter((item: TIngredient) => item.type === 'main'),
     [ingredients]
   );
 
   const sauces = useMemo(
-    () => ingredients.filter((item) => item.type === 'sauce'),
+    () => ingredients.filter((item: TIngredient) => item.type === 'sauce'),
     [ingredients]
   );
 
@@ -53,12 +54,13 @@ export const BurgerIngredients: FC = () => {
 
   const onTabClick = (tab: string) => {
     setCurrentTab(tab as TTabMode);
-    if (tab === 'bun')
+    if (tab === 'bun') {
       titleBunRef.current?.scrollIntoView({ behavior: 'smooth' });
-    if (tab === 'main')
+    } else if (tab === 'main') {
       titleMainRef.current?.scrollIntoView({ behavior: 'smooth' });
-    if (tab === 'sauce')
+    } else if (tab === 'sauce') {
       titleSaucesRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
