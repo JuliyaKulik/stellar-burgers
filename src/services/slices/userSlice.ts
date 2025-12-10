@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // services/slices/userSlice.ts
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+>>>>>>> 98fff6f (на ревью)
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import {
   getUserApi,
@@ -28,9 +31,12 @@ const initialState: UserState = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // Export thunks
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+>>>>>>> 98fff6f (на ревью)
 export const userRegister = createAsyncThunk('user/register', registerUserApi);
 export const userLogin = createAsyncThunk('user/login', loginUserApi);
 export const userLogout = createAsyncThunk('user/logout', logoutApi);
@@ -44,13 +50,17 @@ export const checkUserAuth = createAsyncThunk(
       const accessToken = getCookie('accessToken');
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       // Если нет токена, сразу возвращаем null
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+>>>>>>> 98fff6f (на ревью)
       if (!accessToken) {
         return null;
       }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
       const response = await getUserApi();
 
@@ -59,6 +69,10 @@ export const checkUserAuth = createAsyncThunk(
 
       // Если API вернул ошибку, очищаем токен
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+      const response = await getUserApi();
+
+>>>>>>> 98fff6f (на ревью)
       if (!response.success) {
         deleteCookie('accessToken');
         deleteCookie('refreshToken');
@@ -92,9 +106,12 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       // Check User Auth
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+>>>>>>> 98fff6f (на ревью)
       .addCase(checkUserAuth.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -102,14 +119,19 @@ const userSlice = createSlice({
       .addCase(checkUserAuth.fulfilled, (state, action) => {
         state.isLoading = false;
 <<<<<<< HEAD
+<<<<<<< HEAD
         state.isAuthChecked = true;
 =======
         state.isAuthChecked = true; // Добавляем эту строку!
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+        state.isAuthChecked = true;
+>>>>>>> 98fff6f (на ревью)
         state.user = action.payload;
       })
       .addCase(checkUserAuth.rejected, (state) => {
         state.isLoading = false;
+<<<<<<< HEAD
 <<<<<<< HEAD
         state.isAuthChecked = true;
         state.user = null;
@@ -122,6 +144,12 @@ const userSlice = createSlice({
 
       // Login - используем userLogin (а не loginUser)
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+        state.isAuthChecked = true;
+        state.user = null;
+      })
+
+>>>>>>> 98fff6f (на ревью)
       .addCase(userLogin.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -132,14 +160,19 @@ const userSlice = createSlice({
           state.user = action.payload.user;
           setCookie('accessToken', action.payload.accessToken);
 <<<<<<< HEAD
+<<<<<<< HEAD
           localStorage.setItem('refreshToken', action.payload.refreshToken);
 =======
           setCookie('refreshToken', action.payload.refreshToken);
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+          localStorage.setItem('refreshToken', action.payload.refreshToken);
+>>>>>>> 98fff6f (на ревью)
         }
       })
       .addCase(userLogin.rejected, (state, action) => {
         state.isLoading = false;
+<<<<<<< HEAD
 <<<<<<< HEAD
         state.error = action.error.message || 'Ошибка входа';
       })
@@ -150,6 +183,11 @@ const userSlice = createSlice({
 
       // Register - используем userRegister (а не registerUser)
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+        state.error = action.error.message || 'Ошибка входа';
+      })
+
+>>>>>>> 98fff6f (на ревью)
       .addCase(userRegister.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -160,14 +198,19 @@ const userSlice = createSlice({
           state.user = action.payload.user;
           setCookie('accessToken', action.payload.accessToken);
 <<<<<<< HEAD
+<<<<<<< HEAD
           localStorage.setItem('refreshToken', action.payload.refreshToken);
 =======
           setCookie('accessToken', action.payload.accessToken);
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+          localStorage.setItem('refreshToken', action.payload.refreshToken);
+>>>>>>> 98fff6f (на ревью)
         }
       })
       .addCase(userRegister.rejected, (state, action) => {
         state.isLoading = false;
+<<<<<<< HEAD
 <<<<<<< HEAD
         state.error = action.error.message || 'Ошибка регистрации';
       })
@@ -178,6 +221,11 @@ const userSlice = createSlice({
 
       // Update User - используем userUpdate (а не updateUser)
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+        state.error = action.error.message || 'Ошибка регистрации';
+      })
+
+>>>>>>> 98fff6f (на ревью)
       .addCase(userUpdate.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -191,6 +239,7 @@ const userSlice = createSlice({
       .addCase(userUpdate.rejected, (state, action) => {
         state.isLoading = false;
 <<<<<<< HEAD
+<<<<<<< HEAD
         state.error = action.error.message || 'Ошибка обновления';
       })
 
@@ -199,16 +248,23 @@ const userSlice = createSlice({
         state.error = null;
 =======
         state.error = action.error.message || 'Update failed';
+=======
+        state.error = action.error.message || 'Ошибка обновления';
+>>>>>>> 98fff6f (на ревью)
       })
 
-      // Logout - используем userLogout (а не logoutUser)
       .addCase(userLogout.pending, (state) => {
         state.isLoading = true;
+<<<<<<< HEAD
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+        state.error = null;
+>>>>>>> 98fff6f (на ревью)
       })
       .addCase(userLogout.fulfilled, (state) => {
         state.isLoading = false;
         state.user = null;
+<<<<<<< HEAD
 <<<<<<< HEAD
         state.isAuthChecked = true;
         deleteCookie('accessToken');
@@ -221,16 +277,23 @@ const userSlice = createSlice({
       })
 
 =======
+=======
+        state.isAuthChecked = true;
+>>>>>>> 98fff6f (на ревью)
         deleteCookie('accessToken');
         deleteCookie('refreshToken');
+        localStorage.removeItem('refreshToken');
       })
       .addCase(userLogout.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message || 'Logout failed';
+        state.error = action.error.message || 'Ошибка выхода';
       })
 
+<<<<<<< HEAD
       // Get User
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+>>>>>>> 98fff6f (на ревью)
       .addCase(getUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -244,11 +307,16 @@ const userSlice = createSlice({
       .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
 <<<<<<< HEAD
+<<<<<<< HEAD
         state.error =
           action.error.message || 'Не удалось получить пользователя';
 =======
         state.error = action.error.message || 'Get user failed';
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+        state.error =
+          action.error.message || 'Не удалось получить пользователя';
+>>>>>>> 98fff6f (на ревью)
       });
   }
 });

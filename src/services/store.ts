@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 // services/store.ts
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+>>>>>>> 98fff6f (на ревью)
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import {
   TypedUseSelectorHook,
@@ -15,6 +18,7 @@ import { burgerReducer } from './slices/constructorSlice';
 import feedReducer from './slices/feedSlice';
 import orderReducer from './slices/orderSlice';
 import userOrdersReducer from './slices/userOrdersSlice';
+<<<<<<< HEAD
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
@@ -35,6 +39,16 @@ export const rootReducer = combineReducers({
   order: orderReducer,
   user: userReducer
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+
+export const rootReducer = combineReducers({
+  ingredients: ingredientsReducer,
+  constructor: burgerReducer,
+  feed: feedReducer,
+  order: orderReducer,
+  user: userReducer,
+  userOrders: userOrdersReducer
+>>>>>>> 98fff6f (на ревью)
 });
 
 export const store = configureStore({

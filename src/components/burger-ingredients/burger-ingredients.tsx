@@ -6,6 +6,7 @@ import { TTabMode, TIngredient } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 
 export const BurgerIngredients: FC = () => {
+<<<<<<< HEAD
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
   const buns = useMemo(
@@ -19,6 +20,10 @@ export const BurgerIngredients: FC = () => {
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
   // Теперь TypeScript знает, что ingredients - это TIngredient[]
+=======
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+
+>>>>>>> 98fff6f (на ревью)
   const buns = useMemo(
     () => ingredients.filter((item) => item.type === 'bun'),
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)

@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 98fff6f (на ревью)
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TOrder } from '../../utils/types';
 import { orderBurgerApi, getOrderByNumberApi } from '../../utils/burger-api';
@@ -113,9 +116,12 @@ const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       // Создание заказа
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+>>>>>>> 98fff6f (на ревью)
       .addCase(createOrder.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -123,6 +129,9 @@ const orderSlice = createSlice({
       .addCase(createOrder.fulfilled, (state, action) => {
         state.isLoading = false;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 98fff6f (на ревью)
         state.currentOrder = action.payload.order;
         state.orderNumber = action.payload.order.number;
 =======
@@ -139,6 +148,9 @@ const orderSlice = createSlice({
       })
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 98fff6f (на ревью)
       .addCase(getOrderByNumber.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -150,6 +162,7 @@ const orderSlice = createSlice({
       .addCase(getOrderByNumber.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Ошибка загрузки';
+<<<<<<< HEAD
 =======
       // Получение заказа по номеру
       .addCase(fetchOrderByNumber.pending, (state) => {
@@ -182,6 +195,8 @@ const orderSlice = createSlice({
         state.error =
           action.error.message || 'Не удалось загрузить историю заказов';
 >>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
+=======
+>>>>>>> 98fff6f (на ревью)
       });
   }
 });
