@@ -1,3 +1,6 @@
 export type TAppHeaderUIProps = {
-  userName: string | undefined;
+  userName?: string;
+  isConstructorActive?: boolean;
+  isFeedActive?: boolean;
+  isProfileActive?: boolean;
 };

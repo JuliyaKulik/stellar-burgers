@@ -18,7 +18,6 @@ import { useEffect } from 'react';
 import { checkUserAuth } from '../../services/slices/userSlice';
 import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 import { useAppDispatch } from '../../services/store';
-import { getCookie } from '../../utils/cookie';
 
 const App = () => {
   const location = useLocation();
@@ -31,7 +30,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchIngredients()); // Используйте fetchIngredients, а не getIngredients
+    dispatch(fetchIngredients());
     dispatch(checkUserAuth());
   }, [dispatch]);
 
@@ -40,13 +39,11 @@ const App = () => {
       <AppHeader />
 
       <Routes location={background || location}>
-        {/* Публичные маршруты */}
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
         <Route path='/feed/:number' element={<OrderInfo />} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
 
-        {/* Маршруты только для неавторизованных */}
         <Route
           path='/login'
           element={
@@ -80,7 +77,6 @@ const App = () => {
           }
         />
 
-        {/* Защищенные маршруты */}
         <Route
           path='/profile'
           element={
@@ -106,11 +102,9 @@ const App = () => {
           }
         />
 
-        {/* 404 */}
         <Route path='*' element={<NotFound404 />} />
       </Routes>
 
-      {/* Модальные окна РЕНДЕРЯТСЯ ТОЛЬКО ЕСЛИ ЕСТЬ background */}
       {background && (
         <Routes>
           <Route

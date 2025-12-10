@@ -1,4 +1,3 @@
-// services/slices/userSlice.ts
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import {
   getUserApi,
@@ -24,7 +23,6 @@ const initialState: UserState = {
   error: null
 };
 
-// Export thunks
 export const userRegister = createAsyncThunk('user/register', registerUserApi);
 export const userLogin = createAsyncThunk('user/login', loginUserApi);
 export const userLogout = createAsyncThunk('user/logout', logoutApi);
@@ -37,14 +35,12 @@ export const checkUserAuth = createAsyncThunk(
     try {
       const accessToken = getCookie('accessToken');
 
-      // Если нет токена, сразу возвращаем null
       if (!accessToken) {
         return null;
       }
 
-      const response = await getUserApi(); // Добавьте await!
+      const response = await getUserApi();
 
-      // Если API вернул ошибку, очищаем токен
       if (!response.success) {
         deleteCookie('accessToken');
         deleteCookie('refreshToken');
@@ -77,23 +73,21 @@ const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Check User Auth
       .addCase(checkUserAuth.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(checkUserAuth.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.isAuthChecked = true; // Добавляем эту строку!
+        state.isAuthChecked = true;
         state.user = action.payload;
       })
       .addCase(checkUserAuth.rejected, (state) => {
         state.isLoading = false;
-        state.isAuthChecked = true; // ВАЖНО: даже при ошибке устанавливаем true
+        state.isAuthChecked = true;
         state.user = null;
       })
 
-      // Login - используем userLogin (а не loginUser)
       .addCase(userLogin.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -103,15 +97,14 @@ const userSlice = createSlice({
         if (action.payload.success) {
           state.user = action.payload.user;
           setCookie('accessToken', action.payload.accessToken);
-          setCookie('refreshToken', action.payload.refreshToken);
+          localStorage.setItem('refreshToken', action.payload.refreshToken);
         }
       })
       .addCase(userLogin.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message || 'Login failed';
+        state.error = action.error.message || 'Ошибка входа';
       })
 
-      // Register - используем userRegister (а не registerUser)
       .addCase(userRegister.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -121,15 +114,14 @@ const userSlice = createSlice({
         if (action.payload.success) {
           state.user = action.payload.user;
           setCookie('accessToken', action.payload.accessToken);
-          localStorage.setItem('refreshToken', action.payload.refreshToken); // Исправлено
+          localStorage.setItem('refreshToken', action.payload.refreshToken);
         }
       })
       .addCase(userRegister.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message || 'Registration failed';
+        state.error = action.error.message || 'Ошибка регистрации';
       })
 
-      // Update User - используем userUpdate (а не updateUser)
       .addCase(userUpdate.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -142,25 +134,26 @@ const userSlice = createSlice({
       })
       .addCase(userUpdate.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message || 'Update failed';
+        state.error = action.error.message || 'Ошибка обновления';
       })
 
-      // Logout - используем userLogout (а не logoutUser)
       .addCase(userLogout.pending, (state) => {
         state.isLoading = true;
+        state.error = null;
       })
       .addCase(userLogout.fulfilled, (state) => {
         state.isLoading = false;
         state.user = null;
+        state.isAuthChecked = true;
         deleteCookie('accessToken');
         deleteCookie('refreshToken');
+        localStorage.removeItem('refreshToken');
       })
       .addCase(userLogout.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message || 'Logout failed';
+        state.error = action.error.message || 'Ошибка выхода';
       })
 
-      // Get User
       .addCase(getUser.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -173,7 +166,8 @@ const userSlice = createSlice({
       })
       .addCase(getUser.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message || 'Get user failed';
+        state.error =
+          action.error.message || 'Не удалось получить пользователя';
       });
   }
 });

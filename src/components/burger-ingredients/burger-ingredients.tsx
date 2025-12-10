@@ -1,4 +1,3 @@
-// components/burger-ingredients/burger-ingredients.tsx
 import { useState, useRef, useEffect, FC, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { useSelector } from '../../services/store';
@@ -6,10 +5,8 @@ import { TTabMode, TIngredient } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 
 export const BurgerIngredients: FC = () => {
-  // Получаем массив ингредиентов из состояния
   const ingredients = useSelector((state) => state.ingredients.ingredients);
 
-  // Фильтруем ингредиенты
   const buns = useMemo(
     () => ingredients.filter((item: TIngredient) => item.type === 'bun'),
     [ingredients]

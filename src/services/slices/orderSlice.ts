@@ -1,4 +1,3 @@
-// services/slices/orderSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TOrder } from '../../utils/types';
 import { orderBurgerApi, getOrderByNumberApi } from '../../utils/burger-api';
@@ -7,7 +6,7 @@ import { RootState } from '../store';
 interface OrderState {
   currentOrder: TOrder | null;
   orderNumber: number | null;
-  isLoading: boolean; // исправлено с loading на isLoading
+  isLoading: boolean;
   error: string | null;
 }
 
@@ -23,7 +22,6 @@ export const createOrder = createAsyncThunk(
   async (ingredients: string[], { getState }) => {
     const state = getState() as RootState;
 
-    // Используем constructor, а не burgerConstructor
     const { bun, ingredients: constructorIngredients } = state.constructor;
 
     if (!bun) {
@@ -37,7 +35,7 @@ export const createOrder = createAsyncThunk(
     const data = await orderBurgerApi(ingredients);
 
     if (!data.success) {
-      throw new Error('Failed to create order'); // исправлено
+      throw new Error('Не удалось создать заказ');
     }
 
     return data;
@@ -50,7 +48,7 @@ export const getOrderByNumber = createAsyncThunk(
     const data = await getOrderByNumberApi(orderNumber);
 
     if (!data.success) {
-      throw new Error('Failed to fetch order');
+      throw new Error('Ошибка загрузки');
     }
 
     return data.orders[0];
@@ -69,32 +67,31 @@ const orderSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // createOrder
       .addCase(createOrder.pending, (state) => {
-        state.isLoading = true; // исправлено на isLoading
+        state.isLoading = true;
         state.error = null;
       })
       .addCase(createOrder.fulfilled, (state, action) => {
-        state.isLoading = false; // исправлено на isLoading
+        state.isLoading = false;
         state.currentOrder = action.payload.order;
         state.orderNumber = action.payload.order.number;
       })
       .addCase(createOrder.rejected, (state, action) => {
-        state.isLoading = false; // исправлено на isLoading
-        state.error = action.error.message || 'Failed to create order';
+        state.isLoading = false;
+        state.error = action.error.message || 'Не удалось создать заказ';
       })
-      // getOrderByNumber
+
       .addCase(getOrderByNumber.pending, (state) => {
-        state.isLoading = true; // исправлено на isLoading
+        state.isLoading = true;
         state.error = null;
       })
       .addCase(getOrderByNumber.fulfilled, (state, action) => {
-        state.isLoading = false; // исправлено на isLoading
+        state.isLoading = false;
         state.currentOrder = action.payload;
       })
       .addCase(getOrderByNumber.rejected, (state, action) => {
-        state.isLoading = false; // исправлено на isLoading
-        state.error = action.error.message || 'Failed to fetch order';
+        state.isLoading = false;
+        state.error = action.error.message || 'Ошибка загрузки';
       });
   }
 });

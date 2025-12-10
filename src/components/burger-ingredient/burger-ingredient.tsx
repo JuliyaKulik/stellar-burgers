@@ -1,4 +1,3 @@
-// components/burger-ingredient/burger-ingredient.tsx
 import { FC, memo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../services/store';
@@ -20,13 +19,10 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
     };
 
     const handleAdd = () => {
-      // Убедитесь, что создаете правильный объект
       const constructorIngredient: TConstructorIngredient = {
         ...ingredient,
         id: `${ingredient._id}-${Date.now()}-${Math.random().toString(36).slice(2)}`
       };
-
-      console.log('Dispatching ingredient:', constructorIngredient);
 
       if (ingredient.type === 'bun') {
         dispatch(addBun(constructorIngredient));

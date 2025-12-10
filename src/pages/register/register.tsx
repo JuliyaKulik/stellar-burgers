@@ -1,4 +1,3 @@
-// pages/register/register.tsx
 import { FC, SyntheticEvent, useState } from 'react';
 import { useAppDispatch } from '../../services/store';
 import { RegisterUI } from '@ui-pages';
@@ -28,10 +27,8 @@ export const Register: FC = () => {
       );
 
       if (userRegister.fulfilled.match(resultAction)) {
-        // Успешная регистрация
         navigate('/', { replace: true });
       } else {
-        // Ошибка регистрации
         if (resultAction.payload) {
           setErrorText(resultAction.payload as string);
         } else {

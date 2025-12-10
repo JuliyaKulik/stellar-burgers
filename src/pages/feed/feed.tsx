@@ -8,25 +8,21 @@ export const Feed: FC = () => {
   const dispatch = useAppDispatch();
   const { orders, isLoading, error } = useSelector((state) => state.feed);
 
-  // Функция для обновления ленты заказов
   const handleGetFeeds = useCallback(() => {
     dispatch(fetchFeeds());
   }, [dispatch]);
 
-  // Загружаем заказы при монтировании компонента
   useEffect(() => {
     handleGetFeeds();
   }, [handleGetFeeds]);
 
-  // Показываем прелоадер во время загрузки
-  if (isLoading) {
+  if (isLoading && orders.length === 0) {
     return <Preloader />;
   }
 
-  // Если есть ошибка
   if (error) {
     return (
-      <div>
+      <div className='text text_type_main-default mt-20'>
         <h1>Ошибка загрузки ленты заказов</h1>
         <p>{error}</p>
         <button onClick={handleGetFeeds}>Повторить попытку</button>

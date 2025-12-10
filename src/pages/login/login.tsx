@@ -1,4 +1,3 @@
-// pages/login/login.tsx
 import { FC, SyntheticEvent, useState } from 'react';
 import { useAppDispatch } from '../../services/store';
 import { LoginUI } from '@ui-pages';
@@ -21,10 +20,8 @@ export const Login: FC = () => {
       const resultAction = await dispatch(userLogin({ email, password }));
 
       if (userLogin.fulfilled.match(resultAction)) {
-        // Успешный вход
         navigate('/', { replace: true });
       } else {
-        // Ошибка входа
         if (resultAction.payload) {
           setErrorText(resultAction.payload as string);
         } else {

@@ -1,4 +1,3 @@
-// services/slices/constructorSlice.ts - вариант с чистыми функциями
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient } from '@utils-types';
 

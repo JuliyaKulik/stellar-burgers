@@ -1,4 +1,3 @@
-// services/store.ts
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import {
   TypedUseSelectorHook,
@@ -10,13 +9,15 @@ import ingredientsReducer from './slices/ingredientsSlice';
 import { burgerReducer } from './slices/constructorSlice';
 import feedReducer from './slices/feedSlice';
 import orderReducer from './slices/orderSlice';
+import userOrdersReducer from './slices/userOrdersSlice';
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
-  constructor: burgerReducer, // ПРАВИЛЬНО - это имя используется в компонентах
+  constructor: burgerReducer,
   feed: feedReducer,
   order: orderReducer,
-  user: userReducer // аутентификация через user, не auth
+  user: userReducer,
+  userOrders: userOrdersReducer
 });
 
 export const store = configureStore({

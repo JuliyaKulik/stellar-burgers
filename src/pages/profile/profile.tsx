@@ -1,4 +1,3 @@
-// pages/profile/profile.tsx
 import { ProfileUI } from '@ui-pages';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useSelector } from '../../services/store';
@@ -7,8 +6,7 @@ import { userUpdate } from '../../services/slices/userSlice';
 export const Profile: FC = () => {
   const dispatch = useAppDispatch();
 
-  // Получаем пользователя из стора
-  const { user, isLoading, error } = useSelector((state) => state.user);
+  const { user, error } = useSelector((state) => state.user);
   const [updateUserError, setUpdateUserError] = useState('');
 
   const [formValue, setFormValue] = useState({
@@ -48,7 +46,6 @@ export const Profile: FC = () => {
       );
 
       if (userUpdate.fulfilled.match(resultAction)) {
-        // Сбрасываем пароль после успешного обновления
         setFormValue((prev) => ({ ...prev, password: '' }));
       } else {
         setUpdateUserError('Ошибка при обновлении профиля');

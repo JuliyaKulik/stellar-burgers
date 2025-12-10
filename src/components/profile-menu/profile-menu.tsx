@@ -1,10 +1,9 @@
-// components/profile-menu/profile-menu.tsx
 import { FC } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../services/store';
 import { ProfileMenuUI } from '@ui';
 import { userLogout } from '../../services/slices/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { clearUserOrders } from '../../services/slices/userOrdersSlice';
 
 export const ProfileMenu: FC = () => {
   const { pathname } = useLocation();
@@ -13,8 +12,12 @@ export const ProfileMenu: FC = () => {
 
   const handleLogout = async () => {
     try {
-      await dispatch(userLogout());
-      navigate('/login', { replace: true });
+      const resultAction = await dispatch(userLogout());
+
+      if (userLogout.fulfilled.match(resultAction)) {
+        dispatch(clearUserOrders());
+        navigate('/login', { replace: true });
+      }
     } catch (error) {
       console.error('Ошибка при выходе:', error);
     }
