@@ -3,13 +3,8 @@ import { useAppDispatch } from '../../services/store';
 import { BurgerConstructorElementUI } from '@ui';
 import { BurgerConstructorElementProps } from './type';
 import {
-<<<<<<< HEAD
   removeIngredient,
   moveIngredient
-=======
-  moveIngredient,
-  removeIngredient
->>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
 } from '../../services/slices/constructorSlice';
 
 export const BurgerConstructorElement: FC<BurgerConstructorElementProps> = memo(

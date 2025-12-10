@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 98fff6f (на ревью)
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TOrder } from '../../utils/types';
 import { orderBurgerApi, getOrderByNumberApi } from '../../utils/burger-api';
@@ -18,32 +14,11 @@ const initialState: OrderState = {
   currentOrder: null,
   orderNumber: null,
   isLoading: false,
-=======
-// services/slices/orderSlice.ts
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { orderBurgerApi, getOrderByNumberApi, getOrdersApi } from '@api';
-import { TOrder } from '@utils-types';
-
-interface IOrderState {
-  order: TOrder | null;
-  userOrders: TOrder[]; // Добавляем историю заказов
-  isLoading: boolean;
-  isOrdersLoading: boolean; // Отдельный флаг загрузки заказов
-  error: string | null;
-}
-
-const initialState: IOrderState = {
-  order: null,
-  userOrders: [],
-  isLoading: false,
-  isOrdersLoading: false,
->>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
   error: null
 };
 
 export const createOrder = createAsyncThunk(
   'order/createOrder',
-<<<<<<< HEAD
   async (ingredients: string[], { getState }) => {
     const state = getState() as RootState;
 
@@ -78,19 +53,6 @@ export const getOrderByNumber = createAsyncThunk(
 
     return data.orders[0];
   }
-=======
-  orderBurgerApi
-);
-export const fetchOrderByNumber = createAsyncThunk(
-  'order/fetchOrderByNumber',
-  getOrderByNumberApi
-);
-
-// Добавляем thunk для получения заказов пользователя
-export const fetchUserOrders = createAsyncThunk(
-  'order/fetchUserOrders',
-  getOrdersApi
->>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
 );
 
 const orderSlice = createSlice({
@@ -98,59 +60,27 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     clearOrder: (state) => {
-<<<<<<< HEAD
       state.currentOrder = null;
       state.orderNumber = null;
       state.error = null;
-=======
-      state.order = null;
-    },
-    clearOrderError: (state) => {
-      state.error = null;
-    },
-    clearUserOrders: (state) => {
-      state.userOrders = [];
->>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
     }
   },
   extraReducers: (builder) => {
     builder
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-      // Создание заказа
->>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
-=======
->>>>>>> 98fff6f (на ревью)
       .addCase(createOrder.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.isLoading = false;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 98fff6f (на ревью)
         state.currentOrder = action.payload.order;
         state.orderNumber = action.payload.order.number;
-=======
-        if (action.payload.success) {
-          state.order = action.payload.order;
-          // Добавляем новый заказ в историю
-          state.userOrders.unshift(action.payload.order);
-        }
->>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Не удалось создать заказ';
       })
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 98fff6f (на ревью)
       .addCase(getOrderByNumber.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -162,49 +92,9 @@ const orderSlice = createSlice({
       .addCase(getOrderByNumber.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message || 'Ошибка загрузки';
-<<<<<<< HEAD
-=======
-      // Получение заказа по номеру
-      .addCase(fetchOrderByNumber.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(fetchOrderByNumber.fulfilled, (state, action) => {
-        state.isLoading = false;
-        if (action.payload.success && action.payload.orders.length > 0) {
-          state.order = action.payload.orders[0];
-        }
-      })
-      .addCase(fetchOrderByNumber.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message || 'Не удалось загрузить заказ';
-      })
-
-      // Получение истории заказов пользователя
-      .addCase(fetchUserOrders.pending, (state) => {
-        state.isOrdersLoading = true;
-        state.error = null;
-      })
-      .addCase(fetchUserOrders.fulfilled, (state, action) => {
-        state.isOrdersLoading = false;
-        // getOrdersApi возвращает TOrder[]
-        state.userOrders = action.payload;
-      })
-      .addCase(fetchUserOrders.rejected, (state, action) => {
-        state.isOrdersLoading = false;
-        state.error =
-          action.error.message || 'Не удалось загрузить историю заказов';
->>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
-=======
->>>>>>> 98fff6f (на ревью)
       });
   }
 });
 
-<<<<<<< HEAD
 export const { clearOrder } = orderSlice.actions;
-=======
-export const { clearOrder, clearOrderError, clearUserOrders } =
-  orderSlice.actions;
->>>>>>> ec94571 (отображаются компоненты, не работает кнопка добавить)
 export default orderSlice.reducer;

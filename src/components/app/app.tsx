@@ -14,24 +14,17 @@ import { IngredientDetails, OrderInfo, Modal, AppHeader } from '@components';
 import { ProtectedRoute } from '../protected-route';
 import '../../index.css';
 import styles from './app.module.css';
-<<<<<<< HEAD
-=======
 import { useEffect } from 'react';
 import { checkUserAuth } from '../../services/slices/userSlice';
 import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 import { useAppDispatch } from '../../services/store';
->>>>>>> 98fff6f (на ревью)
 
-import { AppHeader } from '@components';
+const App = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const background = location.state?.background;
 
-<<<<<<< HEAD
-const App = () => (
-  <div className={styles.app}>
-    <AppHeader />
-    <ConstructorPage />
-  </div>
-);
-=======
   const handleModalClose = () => {
     navigate(-1);
   };
@@ -143,6 +136,5 @@ const App = () => (
     </div>
   );
 };
->>>>>>> 98fff6f (на ревью)
 
 export default App;

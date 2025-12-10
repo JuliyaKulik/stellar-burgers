@@ -1,20 +1,12 @@
 import { FC, useMemo } from 'react';
+import { useAppDispatch, useSelector } from '../../services/store';
+import { useNavigate } from 'react-router-dom';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
+import { createOrder, clearOrder } from '../../services/slices/orderSlice';
+import { clearIngredients } from '../../services/slices/constructorSlice';
 
 export const BurgerConstructor: FC = () => {
-<<<<<<< HEAD
-  /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
-  const constructorItems = {
-    bun: {
-      price: 0
-    },
-    ingredients: []
-  };
-
-  const onOrderClick = () => {
-    if (!constructorItems.bun || orderRequest) return;
-=======
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -65,23 +57,12 @@ export const BurgerConstructor: FC = () => {
       .catch((error) => {
         console.error('Не удалось создать заказ:', error);
       });
->>>>>>> 98fff6f (на ревью)
   };
-  const closeOrderModal = () => {};
 
-  const price = useMemo(
-    () =>
-      (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
-      constructorItems.ingredients.reduce(
-        (s: number, v: TConstructorIngredient) => s + v.price,
-        0
-      ),
-    [constructorItems]
-  );
+  const closeOrderModal = () => {
+    dispatch(clearOrder());
+  };
 
-<<<<<<< HEAD
-  return null;
-=======
   const price = useMemo(() => {
     const bunPrice = bun ? bun.price * 2 : 0;
     const ingredientsPrice = ingredients.reduce(
@@ -95,14 +76,13 @@ export const BurgerConstructor: FC = () => {
     );
     return bunPrice + ingredientsPrice;
   }, [bun, ingredients]);
->>>>>>> 98fff6f (на ревью)
 
   return (
     <BurgerConstructorUI
       price={price}
       orderRequest={orderRequest}
       constructorItems={constructorItems}
-      orderModalData={order}
+      orderModalData={orderModalData}
       onOrderClick={onOrderClick}
       closeOrderModal={closeOrderModal}
     />
