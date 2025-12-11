@@ -1,6 +1,6 @@
 import { FC, useMemo } from 'react';
 import { useAppDispatch, useSelector } from '../../services/store';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { createOrder, clearOrder } from '../../services/slices/orderSlice';
@@ -9,6 +9,7 @@ import { clearIngredients } from '../../services/slices/constructorSlice';
 export const BurgerConstructor: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const constructorState = useSelector((state) => state.constructor);
   const bun = constructorState?.bun || null;
@@ -27,7 +28,7 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!user) {
-      navigate('/login', { state: { from: '/' } });
+      navigate('/login', { state: { from: location } });
       return;
     }
 

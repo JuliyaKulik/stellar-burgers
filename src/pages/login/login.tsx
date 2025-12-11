@@ -2,7 +2,7 @@ import { FC, SyntheticEvent, useState } from 'react';
 import { useAppDispatch } from '../../services/store';
 import { LoginUI } from '@ui-pages';
 import { userLogin } from '../../services/slices/userSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const Login: FC = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +11,9 @@ export const Login: FC = () => {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from || { pathname: '/' };
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -20,7 +23,7 @@ export const Login: FC = () => {
       const resultAction = await dispatch(userLogin({ email, password }));
 
       if (userLogin.fulfilled.match(resultAction)) {
-        navigate('/', { replace: true });
+        navigate(from, { replace: true });
       } else {
         if (resultAction.payload) {
           setErrorText(resultAction.payload as string);
