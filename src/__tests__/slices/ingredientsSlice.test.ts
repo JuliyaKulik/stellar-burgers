@@ -1,8 +1,15 @@
-jest.mock('@api', () => ({
-  getIngredientsApi: jest.fn(() => Promise.resolve([]))
-}), { virtual: true });
+jest.mock(
+  '@api',
+  () => ({
+    getIngredientsApi: jest.fn(() => Promise.resolve([]))
+  }),
+  { virtual: true }
+);
 
-import ingredientsReducer, { initialState, fetchIngredients } from '../../services/slices/ingredientsSlice';
+import ingredientsReducer, {
+  initialState,
+  fetchIngredients
+} from '../../services/slices/ingredientsSlice';
 import type { TIngredient } from '@utils-types';
 import ingredientsMock from '../../mocks/ingredients.json';
 
@@ -17,7 +24,7 @@ describe('ingredientsSlice reducer', () => {
   test('Должен устанавливать isLoading = true при pending', () => {
     const action = { type: fetchIngredients.pending.type };
     const result = ingredientsReducer(initialState, action);
-    
+
     expect(result.isLoading).toBe(true);
     expect(result.error).toBeNull();
   });
@@ -27,10 +34,10 @@ describe('ingredientsSlice reducer', () => {
       type: fetchIngredients.fulfilled.type,
       payload: mockIngredients
     };
-    
+
     const pendingState = { ...initialState, isLoading: true };
     const result = ingredientsReducer(pendingState, action);
-    
+
     expect(result.isLoading).toBe(false);
     expect(result.ingredients).toEqual(mockIngredients);
     expect(result.ingredients).toHaveLength(mockIngredients.length);
@@ -43,13 +50,12 @@ describe('ingredientsSlice reducer', () => {
       type: fetchIngredients.rejected.type,
       payload: errorMessage
     };
-    
+
     const pendingState = { ...initialState, isLoading: true };
     const result = ingredientsReducer(pendingState, action);
-    
+
     expect(result.isLoading).toBe(false);
     expect(result.error).toBe(errorMessage);
     expect(result.ingredients).toEqual([]);
   });
 });
-

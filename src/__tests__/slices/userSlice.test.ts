@@ -1,18 +1,29 @@
-jest.mock('@api', () => ({
-  getUserApi: jest.fn(),
-  updateUserApi: jest.fn(),
-  logoutApi: jest.fn(),
-  loginUserApi: jest.fn(),
-  registerUserApi: jest.fn()
-}), { virtual: true });
+jest.mock(
+  '@api',
+  () => ({
+    getUserApi: jest.fn(),
+    updateUserApi: jest.fn(),
+    logoutApi: jest.fn(),
+    loginUserApi: jest.fn(),
+    registerUserApi: jest.fn()
+  }),
+  { virtual: true }
+);
 
-jest.mock('../../utils/cookie', () => ({
-  setCookie: jest.fn(),
-  deleteCookie: jest.fn(),
-  getCookie: jest.fn(() => null)
-}), { virtual: true });
+jest.mock(
+  '../../utils/cookie',
+  () => ({
+    setCookie: jest.fn(),
+    deleteCookie: jest.fn(),
+    getCookie: jest.fn(() => null)
+  }),
+  { virtual: true }
+);
 
-import userReducer, { initialState, checkUserAuth } from '../../services/slices/userSlice';
+import userReducer, {
+  initialState,
+  checkUserAuth
+} from '../../services/slices/userSlice';
 import userMock from '../../mocks/user.json';
 
 const localStorageMock = {
@@ -47,7 +58,7 @@ describe('userSlice reducer - все экшены', () => {
       };
       const pendingState = { ...initialState, isLoading: true };
       const result = userReducer(pendingState, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.user).toEqual(userMock.user);
       expect(result.isAuthChecked).toBe(true);
@@ -62,7 +73,7 @@ describe('userSlice reducer - все экшены', () => {
         error: null
       };
       const result = userReducer(pendingState, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.user).toBeNull();
       expect(result.isAuthChecked).toBe(true);
@@ -83,7 +94,7 @@ describe('userSlice reducer - все экшены', () => {
       };
       const pendingState = { ...initialState, isLoading: true };
       const result = userReducer(pendingState, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.user).toEqual(userMock.user);
     });
@@ -95,7 +106,7 @@ describe('userSlice reducer - все экшены', () => {
       };
       const pendingState = { ...initialState, isLoading: true };
       const result = userReducer(pendingState, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.error).toBe('Ошибка входа');
     });
@@ -115,7 +126,7 @@ describe('userSlice reducer - все экшены', () => {
       };
       const pendingState = { ...initialState, isLoading: true };
       const result = userReducer(pendingState, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.user?.email).toBe('new@example.com');
     });
@@ -127,7 +138,7 @@ describe('userSlice reducer - все экшены', () => {
       };
       const pendingState = { ...initialState, isLoading: true };
       const result = userReducer(pendingState, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.error).toBe('Ошибка регистрации');
     });
@@ -154,7 +165,7 @@ describe('userSlice reducer - все экшены', () => {
         error: null
       };
       const result = userReducer(pendingState, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.user?.name).toBe('Обновленный');
     });
@@ -164,9 +175,13 @@ describe('userSlice reducer - все экшены', () => {
         type: 'user/update/rejected',
         error: { message: 'Ошибка обновления' }
       };
-      const pendingState = { ...initialState, isLoading: true, user: userMock.user };
+      const pendingState = {
+        ...initialState,
+        isLoading: true,
+        user: userMock.user
+      };
       const result = userReducer(pendingState, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.error).toBe('Ошибка обновления');
     });
@@ -189,7 +204,7 @@ describe('userSlice reducer - все экшены', () => {
         error: null
       };
       const result = userReducer(stateWithUser, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.user).toBeNull();
       expect(result.isAuthChecked).toBe(true);
@@ -200,9 +215,13 @@ describe('userSlice reducer - все экшены', () => {
         type: 'user/logout/rejected',
         error: { message: 'Ошибка выхода' }
       };
-      const pendingState = { ...initialState, isLoading: true, user: userMock.user };
+      const pendingState = {
+        ...initialState,
+        isLoading: true,
+        user: userMock.user
+      };
       const result = userReducer(pendingState, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.error).toBe('Ошибка выхода');
     });
@@ -222,7 +241,7 @@ describe('userSlice reducer - все экшены', () => {
       };
       const pendingState = { ...initialState, isLoading: true };
       const result = userReducer(pendingState, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.user).toEqual(userMock.user);
     });
@@ -234,7 +253,7 @@ describe('userSlice reducer - все экшены', () => {
       };
       const pendingState = { ...initialState, isLoading: true };
       const result = userReducer(pendingState, action);
-      
+
       expect(result.isLoading).toBe(false);
       expect(result.error).toBe('Ошибка получения');
     });

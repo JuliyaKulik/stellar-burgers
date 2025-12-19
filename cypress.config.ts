@@ -6,8 +6,5 @@ export default defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
     }
-  },
-  env: {
-    BURGER_API_URL: 'https://norma.education-services.ru/api'
   }
 });

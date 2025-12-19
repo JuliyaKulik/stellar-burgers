@@ -1,10 +1,13 @@
-import { burgerReducer, initialState } from '../../services/slices/constructorSlice';
+import {
+  burgerReducer,
+  initialState
+} from '../../services/slices/constructorSlice';
 import { TConstructorIngredient } from '@utils-types';
 import ingredientsMock from '../../mocks/ingredients.json';
 
 describe('constructorSlice reducer', () => {
   const mockIngredients = ingredientsMock.data;
-  
+
   const mockBun: TConstructorIngredient = {
     ...mockIngredients[0],
     id: `${mockIngredients[0]._id}-${Date.now()}`
@@ -117,53 +120,53 @@ describe('constructorSlice reducer', () => {
   });
 
   describe('Перемещение ингредиентов', () => {
-  const mockThirdIngredient: TConstructorIngredient = {
-    ...mockIngredients[4],
-    id: `${mockIngredients[4]._id}-${Date.now()}`
-  };
-
-  test('Опустить ингредиент вниз по списку', () => {
-    const startIngredients = {
-      bun: mockBun,
-      ingredients: [
-        mockMainIngredient,
-        mockSecondIngredient,
-        mockThirdIngredient
-      ]
+    const mockThirdIngredient: TConstructorIngredient = {
+      ...mockIngredients[4],
+      id: `${mockIngredients[4]._id}-${Date.now()}`
     };
 
-    const action = {
-      type: 'constructor/moveIngredient',
-      payload: { fromIndex: 0, toIndex: 1 }
-    };
+    test('Опустить ингредиент вниз по списку', () => {
+      const startIngredients = {
+        bun: mockBun,
+        ingredients: [
+          mockMainIngredient,
+          mockSecondIngredient,
+          mockThirdIngredient
+        ]
+      };
 
-    const result = burgerReducer(startIngredients, action);
+      const action = {
+        type: 'constructor/moveIngredient',
+        payload: { fromIndex: 0, toIndex: 1 }
+      };
 
-    expect(result.ingredients[0]).toBe(mockSecondIngredient);
-    expect(result.ingredients[1]).toBe(mockMainIngredient);
-    expect(result.ingredients[2]).toBe(mockThirdIngredient);
-  });
+      const result = burgerReducer(startIngredients, action);
 
-  test('Подняли ингредиент вверх в списке', () => {
-    const startIngredients = {
-      bun: mockBun,
-      ingredients: [
-        mockMainIngredient,
-        mockSecondIngredient,
-        mockThirdIngredient
-      ]
-    };
-
-    const action = {
-      type: 'constructor/moveIngredient',
-      payload: { fromIndex: 2, toIndex: 1 }
-    };
-
-    const result = burgerReducer(startIngredients, action);
-
-    expect(result.ingredients[0]).toBe(mockMainIngredient);
-    expect(result.ingredients[1]).toBe(mockThirdIngredient);
-    expect(result.ingredients[2]).toBe(mockSecondIngredient);
+      expect(result.ingredients[0]).toBe(mockSecondIngredient);
+      expect(result.ingredients[1]).toBe(mockMainIngredient);
+      expect(result.ingredients[2]).toBe(mockThirdIngredient);
     });
-  }); 
+
+    test('Подняли ингредиент вверх в списке', () => {
+      const startIngredients = {
+        bun: mockBun,
+        ingredients: [
+          mockMainIngredient,
+          mockSecondIngredient,
+          mockThirdIngredient
+        ]
+      };
+
+      const action = {
+        type: 'constructor/moveIngredient',
+        payload: { fromIndex: 2, toIndex: 1 }
+      };
+
+      const result = burgerReducer(startIngredients, action);
+
+      expect(result.ingredients[0]).toBe(mockMainIngredient);
+      expect(result.ingredients[1]).toBe(mockThirdIngredient);
+      expect(result.ingredients[2]).toBe(mockSecondIngredient);
+    });
+  });
 });

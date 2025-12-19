@@ -1,7 +1,11 @@
-jest.mock('../../utils/burger-api', () => ({
-  orderBurgerApi: jest.fn(),
-  getOrderByNumberApi: jest.fn()
-}), { virtual: true });
+jest.mock(
+  '../../utils/burger-api',
+  () => ({
+    orderBurgerApi: jest.fn(),
+    getOrderByNumberApi: jest.fn()
+  }),
+  { virtual: true }
+);
 
 import orderReducer, { initialState } from '../../services/slices/orderSlice';
 import createOrderMock from '../../mocks/create-order.json';
@@ -26,12 +30,12 @@ describe('orderSlice', () => {
 
   test('createOrder. Должен записывать в store при successful', () => {
     const pendingState = { ...initialState, isLoading: true };
-    
+
     const state = orderReducer(pendingState, {
       type: 'order/createOrder/fulfilled',
       payload: createOrderMock
     });
-    
+
     expect(state.isLoading).toBe(false);
     expect(state.currentOrder).toEqual(createOrderMock.order);
     expect(state.orderNumber).toBe(createOrderMock.order.number);
@@ -39,12 +43,12 @@ describe('orderSlice', () => {
 
   test('createOrder. Должен записывать ошибку в store при rejected', () => {
     const pendingState = { ...initialState, isLoading: true };
-    
+
     const state = orderReducer(pendingState, {
       type: 'order/createOrder/rejected',
       error: { message: 'Ошибка создания' }
     });
-    
+
     expect(state.isLoading).toBe(false);
     expect(state.error).toBe('Ошибка создания');
   });
@@ -58,24 +62,24 @@ describe('orderSlice', () => {
 
   test('getOrderByNumber. Должен записывать в store при successful', () => {
     const pendingState = { ...initialState, isLoading: true };
-    
+
     const state = orderReducer(pendingState, {
       type: 'order/getOrderByNumber/fulfilled',
       payload: getOrderMock.orders[0]
     });
-    
+
     expect(state.isLoading).toBe(false);
     expect(state.currentOrder).toEqual(getOrderMock.orders[0]);
   });
 
   test('getOrderByNumber. Должен записывать ошибку в store при rejected', () => {
     const pendingState = { ...initialState, isLoading: true };
-    
+
     const state = orderReducer(pendingState, {
       type: 'order/getOrderByNumber/rejected',
       error: { message: 'Заказ не найден' }
     });
-    
+
     expect(state.isLoading).toBe(false);
     expect(state.error).toBe('Заказ не найден');
   });
@@ -87,11 +91,11 @@ describe('orderSlice', () => {
       isLoading: false,
       error: null
     };
-    
+
     const state = orderReducer(stateWithOrder, {
       type: 'order/clearOrder'
     });
-    
+
     expect(state.currentOrder).toBeNull();
     expect(state.orderNumber).toBeNull();
   });
